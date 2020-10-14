@@ -12,8 +12,15 @@ ARG RELEASE
 LABEL vcsim=${RELEASE} \
       maintainer="mgasch@vmware.com"
 
+RUN groupadd -g 61000 vcsim
+RUN useradd -g 61000 -l -m -s /bin/false -u 61000 vcsim
+
+WORKDIR /home/vcsim
+RUN chown -R vcsim:vcsim ./
+
 COPY --from=build-env /go/bin/vcsim /usr/local/bin
 COPY --from=build-env /go/bin/govc /usr/local/bin
-USER nobody:nogroup
+
+USER vcsim
 EXPOSE 8989
 CMD ["/usr/local/bin/vcsim", "-l", ":8989", "-username", "administrator", "-password", "REPLACEME"]
