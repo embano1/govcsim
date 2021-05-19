@@ -23,4 +23,4 @@ COPY --from=build-env /go/bin/govc /usr/local/bin
 
 USER vcsim
 EXPOSE 8989
-CMD ["/usr/local/bin/vcsim", "-l", ":8989", "-username", "administrator", "-password", "REPLACEME"]
+CMD ["/usr/local/bin/vcsim", "-l", ":8989", "-username", "administrator", "-password", "REPLACEME", "-host", "4", "-vm", "10"]
